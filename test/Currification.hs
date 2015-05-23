@@ -5,14 +5,14 @@ import Test.HUnit (assertBool, assertEqual)
 
 tests :: Spec
 tests = describe "Currification" $ do
-    testCurrificationPlus
-    testCurrificationMap
-    testCurrificationFilter
+  testCurrificationPlus
+  testCurrificationMap
+  testCurrificationFilter
 
-failError msg = 
-  const $ error $ "You should try using \x1B[33;1m\"" 
-                ++ msg 
-                ++ "\"\x1B[0m"
+failError msg =
+  const $ error $ "You should try using \x1B[33;1m\""
+        ++ msg
+        ++ "\"\x1B[0m"
 
 testCurrificationPlus :: Spec
 testCurrificationPlus = it "currification of +" $ do
@@ -27,9 +27,8 @@ testCurrificationMap = it "currification of map" $ do
   assertEqual "" [2..5] $ addFn [1..4]
 
 testCurrificationFilter :: Spec
-testCurrificationFilter = 
-    it "currification of filter" $ do
-      let filterFn = failError "filter <some function>"
-      assertEqual "" [2, 4, 6, 8, 10] (filterFn [1..10])
-      assertEqual "" [12, 14, 16, 18, 20] (filterFn [11..20])
-
+testCurrificationFilter =
+  it "currification of filter" $ do
+    let filterFn = failError "filter <some function>"
+    assertEqual "" [2, 4, 6, 8, 10] (filterFn [1..10])
+    assertEqual "" [12, 14, 16, 18, 20] (filterFn [11..20])
