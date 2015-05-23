@@ -93,13 +93,15 @@ koanNot = koan "not function" $ do
 koanRead :: Koan
 koanRead = koan "read function" $ do
   -- REPLACE: replaceValue with correct value
-  let result = replaceValue "read"
+  -- let result = replaceValue "read"
+  let result = read "1566"
   assertEqual "use read function" 1566 result
 
 koanReads :: Koan
 koanReads = koan "reads function" $ do
   -- REPLACE: replaceValue with correct value
-  let result = replaceValue "reads"
+  -- let result = replaceValue "reads"
+  let result = reads "1566 other string" :: [(Integer, String)]
   assertEqual "use reads function" [(1566, " other string")] result
 
 ----------------------------------------------------------------------
