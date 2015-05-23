@@ -65,21 +65,24 @@ koanProd = koan "(*) function" $ do
 
 koanAnd :: Koan
 koanAnd = koan "(&&) function" $ do
-   -- REPLACE: replaceValue with correct value
-   let result = replaceValue "(&&)"
-   assertEqual "use (&&) function" False result
+  -- REPLACE: replaceValue with correct value
+  -- let result = replaceValue "(&&)"
+  let result = (1 + 1 == 2) && (2 + 2 == 5)
+  assertEqual "use (&&) function" False result
 
 koanOr :: Koan
 koanOr = koan "(||) function" $ do
-   -- REPLACE: replaceValue with correct value
-   let result = replaceValue "(||)"
-   assertEqual "use (||) function" True result
+  -- REPLACE: replaceValue with correct value
+  -- let result = replaceValue "(||)"
+  let result = (1 + 1 == 2) || (2 + 2 == 4)
+  assertEqual "use (||) function" True result
 
 koanNot :: Koan
 koanNot = koan "not function" $ do
-   -- REPLACE: replaceValue with correct value
-   let result = replaceValue "not"
-   assertEqual "use (not) function" False result
+  -- REPLACE: replaceValue with correct value
+  -- let result = replaceValue "not"
+  let result = not (True && (not False))
+  assertEqual "use (not) function" False result
 
 ----------------------------------------------------------------------
 --
