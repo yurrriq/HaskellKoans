@@ -113,5 +113,6 @@ koanReads = koan "reads function" $ do
 koanId :: Koan
 koanId = koan "id function" $ do
   -- REPLACE: replaceValue with correct value
-  let result = replaceValue "id"
+  -- let result = replaceValue "id"
+  let result = maybe 42 id (Just (1500 + 66))
   assertEqual "use id function" 1566 result
