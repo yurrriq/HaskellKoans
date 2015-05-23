@@ -46,13 +46,15 @@ koanPlus = koan "(+) function" $ do
 koanMinus :: Koan
 koanMinus = koan "(-) function" $ do
   -- REPLACE: replaceValue with correct value
-  let result = replaceValue "(-)"
+  -- let result = replaceValue "(-)"
+  let result = 20 - 10
   assertEqual "use (-) function" 10 result
 
 koanProd :: Koan
 koanProd = koan "(*) function" $ do
   -- REPLACE: replaceValue with correct value
-  let result = replaceValue "(*)"
+  -- let result = replaceValue "(*)"
+  let result = 2 * 3
   assertEqual "use (*) function" 6 result
 
 ----------------------------------------------------------------------
