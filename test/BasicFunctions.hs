@@ -1,6 +1,6 @@
 {-
 This module contains koans for the most basic functions
-in Haskell 
+in Haskell
 -}
 module BasicFunctions (koans) where
 
@@ -108,4 +108,3 @@ koanId = koan "id function" $ do
     -- REPLACE: replaceValue with correct value
     let result = replaceValue "id"
     assertEqual "use id function" 1566 result
-
