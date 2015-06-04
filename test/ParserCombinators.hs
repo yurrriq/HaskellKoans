@@ -3,8 +3,9 @@ module ParserCombinators (tests) where
 
 import Test.Hspec (Spec, describe, it)
 import Test.HUnit (assertBool, assertEqual, Assertion)
+import Control.Applicative ((<$>), (<|>))
 import qualified Data.Attoparsec.Text as P
-import Data.Text (Text)
+import Data.Text (Text, pack)
 
 tests :: Spec
 tests = describe "ParserCombinators" $ do
@@ -30,14 +31,14 @@ assertParse expected (Right answer) =
 testDigitParser :: Spec
 testDigitParser = it "digit parser" $ do
     -- Change parser with the correct parser to use
-    let parser = failParser "digit parser" :: P.Parser Char
+    let parser = P.digit
     let result = P.parseOnly parser "5"
     assertParse '5' result
 
 testDigitsParser :: Spec
 testDigitsParser = it "sequence of digits parser" $ do
     -- Change parser with the correct parser to use
-    let parser = failParser "sequence of digits parser" :: P.Parser String
+    let parser = digitsParser
     let result = P.parseOnly parser "54321"
     assertParse "54321" result
 
@@ -47,7 +48,7 @@ testSymbolParser = it "symbol parser" $ do
     --
     -- Here we say symbol is a sequence of characters that doesn't have
     -- parenthes or spaces.
-    let parser = failParser "symbol parser" :: P.Parser String
+    let parser = symbolParser
     assertParse "ab" $ P.parseOnly parser "ab"
     assertParse "a/b" $ P.parseOnly parser "a/b"
     assertParse "a/b" $ P.parseOnly parser "a/b c"
@@ -58,7 +59,7 @@ testAtomParser :: Spec
 testAtomParser = it "atom parser" $ do
     -- Change parser with the correct parser to use
     --
-    let parser = failParser "atom parser" :: P.Parser Atom
+    let parser = AInt . read <$> digitsParser <|> ASym . pack <$> symbolParser
     assertParse (ASym "ab") $ P.parseOnly parser "ab"
     assertParse (ASym "a/b") $ P.parseOnly parser "a/b"
     assertParse (ASym "a/b") $ P.parseOnly parser "a/b c"
@@ -73,3 +74,9 @@ testListParser = it "list parser" $ do
     assertParse Nil $ P.parseOnly parser "()"
     assertParse (Cons (LAtom (AInt 12)) Nil) $ P.parseOnly parser "(12)"
     assertParse (Cons (LAtom (ASym "a")) (Cons (LAtom (ASym "b")) Nil)) $ P.parseOnly parser "(a (b))"
+
+digitsParser :: P.Parser String
+digitsParser = P.many1 P.digit
+
+symbolParser :: P.Parser String
+symbolParser = P.many1 $ P.satisfy $ not . flip any "( )" . (==)
